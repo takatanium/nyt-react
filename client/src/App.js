@@ -7,11 +7,11 @@ import Nav from "./components/Nav";
 import { Container } from "./components/Grid";
 
 class App extends Component {
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
 
-		const d = new Date();
-		const date = d.toISOString().slice(0,10);
+    const d = new Date();
+    const date = d.toISOString().slice(0,10);
 
     this.state = {
       search: [],
@@ -26,11 +26,10 @@ class App extends Component {
   };
 
   searchArticles = (topic, start, end) => {
-  	let q = topic.trim();
-  	q += `&begin_date=${start.replace(/-/g,'')}`;
-  	if (new Date(end) > new Date(start)) {
-  		console.log('Larger');
-  	  q += `&end_date=${end.replace(/-/g,'')}`;
+    let q = topic.trim();
+    q += `&begin_date=${start.replace(/-/g,'')}`;
+    if (new Date(end) > new Date(start)) {
+      q += `&end_date=${end.replace(/-/g,'')}`;
     }
     API.search(q)
       .then(res => this.setState({ 
@@ -53,22 +52,22 @@ class App extends Component {
     	                  this.state.end);
   };
 
-	render() {
+  render() {
     return (
-	    <Router>
-	      <div>
-	        <Nav />
-	        <Container fluid>
-		        <Search 
-		          state={this.state}
-		          handleInputChange={this.handleInputChange}
-		          handleFormSubmit={this.handleFormSubmit}
-		        />
-		        <Main results={this.state.search}/>
-		        {/*saved*/}
-	        </Container>
-	      </div>
-	    </Router>
+      <Router>
+        <div>
+          <Nav />
+          <Container fluid>
+            <Search 
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+              handleFormSubmit={this.handleFormSubmit}
+            />
+            <Main results={this.state.search}/>
+            {/*saved*/}
+          </Container>
+        </div>
+      </Router>
     )
   }
 };
