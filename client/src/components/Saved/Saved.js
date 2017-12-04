@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Row } from "../Grid";
-import { Panel } from "../Panel";
+import Panel from "../Panel";
 import Note from "../Note";
 import { List, 
          ListItem,
@@ -8,7 +8,7 @@ import { List,
          ItemSub, 
          ActionBtn } from "../List";
 
-export const Saved = props =>
+const Saved = props =>
   <Row>
     <Col size="sm-12">
       <Panel heading="Saved">
@@ -46,3 +46,4 @@ export const Saved = props =>
     </Col>
   </Row>;
 
+export default Saved;

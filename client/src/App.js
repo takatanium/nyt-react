@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import API from "./utils/API";
-import { Main } from "./components/Main";
-import { Saved } from "./components/Saved";
-import { Search } from "./components/Search";
+import Main from "./components/Main";
+import Saved from "./components/Saved";
+import Search from "./components/Search";
 import Nav from "./components/Nav";
 import { Container } from "./components/Grid";
 
@@ -68,8 +67,12 @@ class App extends Component {
     	date: this.state.search[key].pub_date,
     	url: this.state.search[key].web_url
     })
-      .then(res => this.loadSaved())
-      .catch(err => console.log(err));
+      .then(res => {
+        this.loadSaved();
+        this.state.search.splice(key,1);
+        this.setState({ search: this.state.search })
+      })
+      .catch(err => alert(`${err}\nArticle may be saved already.`));
   };
 
   delArticle = id => {

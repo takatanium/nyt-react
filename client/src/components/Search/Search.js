@@ -1,9 +1,9 @@
 import React from "react";
-import { Panel } from "../Panel";
+import Panel from "../Panel";
 import { Col, Row } from "../Grid";
 import { Input, FormBtn } from "../Form";
 
-export const Search = props =>
+const Search = props =>
   <Row>
     <Col size="sm-12">
       <Panel heading="Search">
@@ -39,3 +39,5 @@ export const Search = props =>
       </Panel>
     </Col>
   </Row>;
+
+export default Search;

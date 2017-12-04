@@ -1,9 +1,9 @@
 import React from "react";
 import { Col, Row } from "../Grid";
-import { Panel } from "../Panel";
+import Panel from "../Panel";
 import { List, ListItem, ItemTitle, ActionBtn } from "../List";
 
-export const Main = props => 
+const Main = props => 
   <Row>
     <Col size="sm-12">
       <Panel heading="Results">
@@ -29,3 +29,5 @@ export const Main = props =>
       </Panel>
     </Col>
   </Row>;
+
+export default Main;

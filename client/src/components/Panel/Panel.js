@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Panel = ({ heading, children }) =>
+const Panel = ({ heading, children }) =>
   <div className="panel panel-primary">
     <div className="panel-heading text-center">
       <h1>{heading}</h1>
@@ -9,3 +9,5 @@ export const Panel = ({ heading, children }) =>
       {children}
     </div>
   </div>;
+
+export default Panel;
