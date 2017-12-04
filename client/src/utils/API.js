@@ -19,5 +19,8 @@ export default {
   },
   saveArticle: function(articleData) {
     return axios.post("/api/saved", articleData);
+  },
+  updateArticle: function(id, articleData) {
+    return axios.put("/api/saved/" + id, articleData);
   }
 };

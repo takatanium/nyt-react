@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import API from "./utils/API";
 import { Main } from "./components/Main";
+import { Saved } from "./components/Saved";
 import { Search } from "./components/Search";
 import Nav from "./components/Nav";
 import { Container } from "./components/Grid";
@@ -15,6 +16,7 @@ class App extends Component {
 
     this.state = {
       search: [],
+      saved: [],
       topic: "",
       start: date,
       end: date
@@ -22,7 +24,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    // this.displaSaved();
+    this.loadSaved();
   };
 
   searchArticles = (topic, start, end) => {
@@ -39,7 +41,7 @@ class App extends Component {
   };
 
   handleInputChange = event => {
-    const { name, value } = event.target;
+    const { name, value} = event.target;
     this.setState({
       [name]: value
     });
@@ -52,22 +54,52 @@ class App extends Component {
     	                  this.state.end);
   };
 
+  loadSaved = () => {
+    API.getArticles()
+      .then(res =>
+        this.setState({ saved: res.data })
+      )
+      .catch(err => console.log(err));
+  };
+
+  saveArticle = key => {
+    API.saveArticle({
+    	title: this.state.search[key].headline.main,
+    	date: this.state.search[key].pub_date,
+    	url: this.state.search[key].web_url
+    })
+      .then(res => this.loadSaved())
+      .catch(err => console.log(err));
+  };
+
+  delArticle = id => {
+    API.deleteArticle(id)
+      .then(res => this.loadSaved())
+      .catch(err => console.log(err));
+  };
+
   render() {
     return (
-      <Router>
-        <div>
-          <Nav />
-          <Container fluid>
-            <Search 
-              state={this.state}
-              handleInputChange={this.handleInputChange}
-              handleFormSubmit={this.handleFormSubmit}
-            />
-            <Main results={this.state.search}/>
-            {/*saved*/}
-          </Container>
-        </div>
-      </Router>
+      <div>
+        <Nav />
+        <Container fluid>
+          <Search 
+            state={this.state}
+            handleInputChange={this.handleInputChange}
+            handleFormSubmit={this.handleFormSubmit}
+          />
+          <Main 
+            results={this.state.search}
+            saveArticle={this.saveArticle}
+          />
+          <Saved 
+            saved={this.state.saved}
+            delArticle={this.delArticle}
+            updateArticle={this.updateArticle}
+            loadSaved={this.loadSaved}
+          />
+        </Container>
+      </div>
     )
   }
 };

@@ -16,14 +16,14 @@ export const Search = props =>
             placeholder="Enter Search Term(s)"
           />
           <Input
-            heading="Start Year"
+            heading="Start Date"
             value={props.state.start}
             onChange={props.handleInputChange}
             name="start"
             type="date"
           />
           <Input
-            heading="End Year"
+            heading="End Date"
             value={props.state.end}
             onChange={props.handleInputChange}
             name="end"
